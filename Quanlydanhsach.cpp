@@ -122,7 +122,7 @@ void BubbleSortTuDauDay(SinhVien lop[], int n) {
     for (int i = n - 1; i > 0; i--) {
         for (int j = 0; j < i ; j++)
             if (lop[j].masv > lop[j + 1].masv)
-                swap(lop[j], lop[j - 1]);
+                swap(lop[j], lop[j + 1]);
     }
     cout << "\nDanh sach sau sap xep";
     Xuat(lop, n);
