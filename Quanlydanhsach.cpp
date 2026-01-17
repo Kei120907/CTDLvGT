@@ -107,6 +107,8 @@ void Interchangesort(SinhVien lop[], int n) {
         }
     }
 }
+
+
 void Bubblesort(SinhVien lop[], int n) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = n - 1; j > i; j--) {
@@ -116,7 +118,15 @@ void Bubblesort(SinhVien lop[], int n) {
         }
     }
 }
-
+void BubbleSortTuDauDay(SinhVien lop[], int n) {
+    for (int i = n - 1; i > 0; i--) {
+        for (int j = 0; j < i ; j++)
+            if (lop[j].masv > lop[j + 1].masv)
+                swap(lop[j], lop[j - 1]);
+    }
+    cout << "\nDanh sach sau sap xep";
+    Xuat(lop, n);
+}
 void TKNP(SinhVien lop[], int n) {
     int l = 0, r = n - 1;
     int m = (l + r) / 2;
