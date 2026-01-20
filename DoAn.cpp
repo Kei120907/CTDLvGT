@@ -190,6 +190,52 @@ void Thongke(Becon lop[], int n) {
     }    cout << endl;
     BMImaxmin(lop, n);
 }
+int MS(Becon lop[],int n, string a) {
+    for (int i = 0; i < n; i++) 
+        if (lop[i].ms==a) return i;
+    return -1;
+}
+void Chon1hs(Becon lop[], int n) {
+    system("cls");
+    InLop(lop, n);
+    string a;
+    do {
+        cout << "\n Nhap ma so hoc sinh can chinh sua thong tin: ";  getline(cin, a);
+        if (MS(lop, n, a) == -1) cout<< "\n #Ma so hoc sinh chinh sua phai co trong danh sach, hay nhap lai";
+    } while (MS(lop, n, a) == -1);
+    system("cls");
+    cout << "\n Thong tin hoc sinh hien tai"<<endl;
+    cout << setw(14) << left << "Ma so be "
+        << setw(25) << left << "Ho ten be"
+        << setw(8) << "Tuoi"
+        << setw(17) << "Chieu cao(cm)"
+        << setw(17) << "Can nang(kg)" << endl;
+    InHS(lop[MS(lop, n, a)]);
+    cout << "\n Nhap lai cac thong tin chinh sua";
+    do {
+        cout << "\n Nhap ho ten be, toi da 31 ky tu (khong duoc de trong): ";
+        getline(cin, lop[MS(lop, n, a)].tenbe);
+    } while (0 >= (lop[MS(lop, n, a)].tenbe).length() || (lop[MS(lop, n, a)].tenbe).length() > 31);
+    do {
+        cout << "\n Tuoi (lon hon 0): ";
+        cin >> lop[MS(lop, n, a)].tuoi;
+    } while (lop[MS(lop, n, a)].tuoi <= 0);
+    do {
+        cout << "\n Chieu cao (cm,>0): ";
+        cin >> lop[MS(lop, n, a)].cao;
+    } while (lop[MS(lop, n, a)].cao <= 0);
+    do {
+        cout << "\n Can nang (kg,>0): ";
+        cin >> lop[MS(lop, n, a)].nang;
+    } while (lop[MS(lop, n, a)].nang <= 0);
+    cout << "\n Thong tin hoc sinh sau chinh sua" << endl;
+    cout << setw(14) << left << "Ma so be "
+        << setw(25) << left << "Ho ten be"
+        << setw(8) << "Tuoi"
+        << setw(17) << "Chieu cao(cm)"
+        << setw(17) << "Can nang(kg)" << endl;
+    InHS(lop[MS(lop, n, a)]);
+}
 void Auto(Becon lop[], int& n) {
     n = 8;
     lop[0] = { "Vo Hoang Huy","005",5,167,50 };
@@ -396,7 +442,8 @@ void DS(Becon lop[], int& n, int& tt, int& sx) {
         cout << "\n  Nhap '3': [Minimenu] Cac lua chon bo sung danh sach hs";
         cout << "\n  Nhap '4': [Minimenu] Cac lua chon xoa danh sach hs";
         cout << "\n  Nhap '5': [Minimenu] Cac lua chon sap xep danh sach hs";
-        cout << "\n  Nhap '6': Ket thuc buoc chinh sua danh sach, den buoc tiep theo";
+        cout << "\n  Nhap '6': Chinh sua thong tin 1 hoc sinh theo ma so";
+        cout << "\n  Nhap '7': Ket thuc buoc chinh sua danh sach, den buoc tiep theo";
         cout << "\n  Nhap lua chon cua ban: ";
         cin >> lc;
         cin.ignore(); tt++;
@@ -406,10 +453,11 @@ void DS(Becon lop[], int& n, int& tt, int& sx) {
         case 3: LCBS(lop, n, tt, sx); break;
         case 4: LCX(lop, n, tt); break;
         case 5: LCSX(lop, n, tt, sx); break;
-        case 6: { system("cls"); cout << "Da hoan tat chinh sua danh sach!\n"; break; }
+        case 6: Chon1hs(lop,n); break;
+        case 7: { system("cls"); cout << "Da hoan tat chinh sua danh sach!\n"; break; }
         default: cout << "Lua chon khong hop le!\n";
         }
-    } while (lc != 6);
+    } while (lc != 7);
 }
 void LCTK(Becon lop[], int n, int& tt, int sx) {
     int lc;
