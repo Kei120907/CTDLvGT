@@ -1,4 +1,4 @@
-
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -42,26 +42,31 @@ void NhapLop(Becon lop[], int& n) {
     cin.ignore();
     for (int i = 0; i < n; i++)
     {
-        cout << "\n Hoc sinh thu " << i + 1;
+       cout << "\n Hoc sinh thu " << i + 1;
         NhapHS(lop[i]);
         cin.ignore();
     }
 }
 
 void InHS(Becon bc) {
-    cout << "\n    Ma so be: " << bc.ms;
-    cout << "\n    Ten be: " << bc.tenbe;
-    cout << "\n    Tuoi: " << bc.tuoi;
-    cout << "\n    Chieu cao (cm): " << bc.cao;
-    cout << "\n    Can nang (kg): " << bc.nang;
+    cout << setw(14) << left << bc.ms
+        << setw(25) << left << bc.tenbe
+        << setw(8) << bc.tuoi
+        << setw(17) << bc.cao
+        << setw(17) << bc.nang << endl;
 }
 
-void InLop(Becon lop[], int n) { 
+void InLop(Becon lop[], int n) {
     if (n == 0) cout << "\n Danh sach trong";
     else {
+        cout << setw(14) << left << "Ma so be "
+            << setw(25) << left << "Ho ten be"
+            << setw(8) << "Tuoi"
+            << setw(17) << "Chieu cao(cm)"
+            << setw(17) << "Can nang(kg)" << endl;
         for (int i = 0; i < n; i++)
         {
-            cout << "\n Hoc sinh thu " << i + 1;
+            //cout << "\n Hoc sinh thu " << i + 1;
             InHS(lop[i]);
         }
     }
@@ -78,7 +83,11 @@ void TKTT(Becon lop[], int n) {
         }
     }
     if (t != -1) {
-        cout << "Tim thay ma so, Thong tin be: "; InHS(lop[t]);
+        cout << "Tim thay ma so, Thong tin be: \n";  cout << setw(14) << left << "Ma so be "
+            << setw(25) << left << "Ho ten be"
+            << setw(8) << "Tuoi"
+            << setw(17) << "Chieu cao(cm)"
+            << setw(17) << "Can nang(kg)" << endl; InHS(lop[t]);
     }
     else cout << "Ko tim thay";
 }
@@ -92,7 +101,12 @@ void TKTTcolc(Becon lop[], int n) {
         t++;
     }
     if (t < n) {
-        cout << "Tim thay ma so, Thong tin be: "; InHS(lop[t]);
+        cout << "Tim thay ma so, Thong tin be: \n";  
+        cout << setw(14) << left << "Ma so be "
+            << setw(25) << left << "Ho ten be"
+            << setw(8) << "Tuoi"
+            << setw(17) << "Chieu cao(cm)"
+            << setw(17) << "Can nang(kg)" << endl; InHS(lop[t]);
     }
     else cout << "Ko tim thay";
 }
@@ -115,7 +129,12 @@ void TKNP(Becon lop[], int n, int tt, int sx) {
     while (l <= r) {
         int m = (l + r) / 2;
         if (lop[m].ms == x) {
-            cout << "Tim thay ma so, thong tin: ";
+            cout << "Tim thay ma so, thong tin: \n";
+            cout << setw(14) << left << "Ma so be "
+                << setw(25) << left << "Ho ten be"
+                << setw(8) << "Tuoi"
+                << setw(17) << "Chieu cao(cm)"
+                << setw(17) << "Can nang(kg)" << endl;
             InHS(lop[m]);
             return;
         }
@@ -379,7 +398,7 @@ void LCTK(Becon lop[], int n, int& tt, int sx) {
     } while (lc != 4);
 }
 int main() {
-    int t=0, lc2, tt = 1, sx = 0;
+    int t = 0, lc2, tt = 1, sx = 0;
     Becon lop[30];
     DS(lop, t, tt, sx);
     do {
