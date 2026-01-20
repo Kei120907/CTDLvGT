@@ -147,25 +147,59 @@ float BMI(Becon bc) {
     return bc.nang / ((bc.cao * bc.cao) / 10000);
 }
 
-void BMImax(Becon lop[], int n) {
-    int vt = 0;
+void BMImaxmin(Becon lop[], int n) {
+    int vtmax=0, vtmin = 0;
     for (int i = 1; i < n; i++) {
-        if (BMI(lop[i]) > BMI(lop[vt])) {
-            vt = i;
+        if (BMI(lop[i]) > BMI(lop[vtmax])) {
+            vtmax = i;
         }
+        else vtmin = i;
     }
-    cout << "\n Be co BMI lon nhat: ";
-    cout << "\n BMI=" << BMI(lop[vt]);
-    InHS(lop[vt]);
+    cout << "\nBMI max= " << BMI(lop[vtmax])<<",thong tin be:"<<endl;
+    cout << setw(14) << left << "Ma so be "
+        << setw(25) << left << "Ho ten be"
+        << setw(8) << "Tuoi"
+        << setw(17) << "Chieu cao(cm)"
+        << setw(17) << "Can nang(kg)" << endl;
+    InHS(lop[vtmax]);
+    cout << "\nBMI min= " << BMI(lop[vtmin]) << ",thong tin be:" << endl;
+    cout << setw(14) << left << "Ma so be "
+        << setw(25) << left << "Ho ten be"
+        << setw(8) << "Tuoi"
+        << setw(17) << "Chieu cao(cm)"
+        << setw(17) << "Can nang(kg)" << endl;
+    InHS(lop[vtmin]);
+    cout << endl;
+    cout << "Chenh lech BMI thap nhat va cao nhat= " << BMI(lop[vtmax]) - BMI(lop[vtmin]);
 }
+void Thongke(Becon lop[], int n) {
+    float tbbmi = 0;
+    for (int i = 0; i < n; i++) {
+        tbbmi += BMI(lop[i]);
+    }
+    tbbmi = tbbmi / n;
+    cout << "BMI trung binh=" << tbbmi << endl << endl;
+    cout << "Ma so hoc sinh co BMI thap hon trung binh: ";
+    for (int i = 0; i < n; i++) {
+        if (BMI(lop[i]) < tbbmi) cout << lop[i].ms<<"    ";
+    }    cout << endl << endl;
 
+    cout << "Ma so hoc sinh co BMI cao hon trung binh: ";
+    for (int i = 0; i < n; i++) {
+        if (BMI(lop[i]) > tbbmi) cout << lop[i].ms << "    ";
+    }    cout << endl;
+    BMImaxmin(lop, n);
+}
 void Auto(Becon lop[], int& n) {
-    n = 5;
+    n = 8;
     lop[0] = { "Vo Hoang Huy","005",5,167,50 };
     lop[1] = { "Pham Ngoc Minh Man","003",5,165,48 };
-    lop[2] = { "Vo Pham Ngoc Long","001",5, 169,55 };
+    lop[2] = { "Vo Pham Ngoc Long","001",7, 169,55 };
     lop[3] = { "Vo Pham Hoang Long","002",5, 167,60 };
     lop[4] = { "Vo Pham Minh Long","004",6, 166,58 };
+    lop[7] = { "Vo Pham Ngoc Diep","007",7,164,49 };
+    lop[6] = { "Vo Pham Tuong Vy","008",6,164,48 };
+    lop[5] = { "Vo Pham Bao Ngoc","010",5, 170,55 };
     InLop(lop, n);
 }
 void swap(Becon& a, Becon& b) {
@@ -406,7 +440,7 @@ int main() {
         cout << "\n  Nhap '-1': Quay tro lai thao tac chinh sua danh sach";
         cout << "\n  Nhap '0': In danh sach be tai truong man non Hoa Hong";
         cout << "\n  Nhap '1': Tim kiem thong tin be theo ms";
-        cout << "\n  Nhap '2': Tim be co BMI lon nhat";
+        cout << "\n  Nhap '2': Thong ke danh sach";
         cout << "\n  Nhap '3': Ket thuc chuong trinh";
         cout << "\n  Nhap lua chon cua ban: ";
         cin >> lc2; cin.ignore(); tt++; system("cls");
@@ -414,7 +448,7 @@ int main() {
         case -1:DS(lop, t, tt, sx); break;
         case 0: InLop(lop, t); break;
         case 1: LCTK(lop, t, tt, sx); break;
-        case 2: BMImax(lop, t); break;
+        case 2: Thongke(lop, t); break;
         case 3: { cout << "\n            ---Chuong trinh da duoc ket thuc, so thao tac= " << tt << "---"; break; }
         }
     } while (lc2 != 3);
