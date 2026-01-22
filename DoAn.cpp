@@ -292,36 +292,34 @@ void BubbleSort2(Becon lop[], int n) {
 }
 void Insertionsort(Becon lop[], int n)
 {
-
-    int pos; string x; Becon a;
-    for (int i = 1; i < n; i++)
-    {
-        a = lop[i]; x = lop[i].ms; pos = i - 1;
-        while ((pos >= 0) && lop[pos].ms > x)
-        {
-            lop[pos + 1] = lop[pos];
-            pos--;
+    int t; Becon a;
+    for (int i = 1; i < n; i++) {
+        t = i - 1; a = lop[i];
+        while (t >= 0 && a.ms < lop[t].ms) {
+            lop[t+1] = lop[t];
+            t--;
         }
-        lop[pos + 1].ms = x;
-        lop[pos + 1] = a;
-
+        lop[t + 1] = a;
     }
 }
+
 void Shakersort(Becon lop[], int n) {
     int l = 0, r = n - 1, k = n - 1;
     while (l < r) {
-        for (int i = r; i > l; i--)
-            if (lop[i - 1].ms > lop[i].ms)
-            {
-                swap(lop[i - 1], lop[i]); k = i;
+        for (int i = r; i > l; i--) {
+            if (lop[i].ms < lop[i - 1].ms) {
+                swap(lop[i], lop[i - 1]);
+                k = i;
             }
-        l = k;
-        for (int j = l; j < r; j++)
-            if (lop[j].ms > lop[j + 1].ms)
-            {
-                swap(lop[j], lop[j + 1]); k = j;
-            }
-        r = k;
+        }
+         l = k;
+         for (int j=l;j<r;j++) {
+             if (lop[j].ms > lop[j + 1].ms) {
+                 swap(lop[j], lop[j + 1]);
+                 k = j;
+             }
+        }
+         r = k;
     }
 }
 void Bosungn(Becon lop[], int& n) {
@@ -418,19 +416,21 @@ void LCSX(Becon lop[], int n, int& tt, int& sx) {
         cout << "\n Nhap '2': Interchangesort";
         cout << "\n Nhap '3': Bubblesort";
         cout << "\n Nhap '4': Insertionsort";
-        cout << "\n Nhap '5': Ket thuc sap xep, quay lai Menu";
+        cout << "\n Nhap '5': Shakersort";
+        cout << "\n Nhap '6': Ket thuc sap xep, quay lai Menu";
         cout << "\n Nhap lua chon cua ban: ";
         cin >> lc;
         cin.ignore(); tt++;
         switch (lc) {
-        case 1: { system("cls"); Selectionsort(lop, n); sx = 1; cout << "\n Danh sach sau khi sap xep"; InLop(lop, n); break; }
-        case 2: { system("cls"); Interchangesort(lop, n); sx = 1; cout << "\n Danh sach sau khi sap xep"; InLop(lop, n); break; }
-        case 3: { system("cls"); BubbleSort2(lop, n); sx = 1; cout << "\n Danh sach sau khi sap xep"; InLop(lop, n); break; }
-        case 4: { system("cls"); Insertionsort(lop, n); sx = 1; cout << "\n Danh sach sau khi sap xep"; InLop(lop, n); break; }
-        case 5: cout << "Quay lai Menu!\n"; break;
+        case 1: { system("cls"); Selectionsort(lop, n); sx = 1; cout << "\n Danh sach sau khi sap xep\n"; InLop(lop, n); break; }
+        case 2: { system("cls"); Interchangesort(lop, n); sx = 1; cout << "\n Danh sach sau khi sap xep\n"; InLop(lop, n); break; }
+        case 3: { system("cls"); BubbleSort2(lop, n); sx = 1; cout << "\n Danh sach sau khi sap xep\n"; InLop(lop, n); break; }
+        case 4: { system("cls"); Insertionsort(lop, n); sx = 1; cout << "\n Danh sach sau khi sap xep\n"; InLop(lop, n); break; }
+        case 5: { system("cls"); Shakersort(lop, n); sx = 1; cout << "\n Danh sach sau khi sap xep\n"; InLop(lop, n); break; }
+        case 6: cout << "Quay lai Menu!\n"; break;
         default: cout << "Lua chon khong hop le!\n"; break;
         }
-    } while (lc != 5);
+    } while (lc != 6);
 }
 
 void DS(Becon lop[], int& n, int& tt, int& sx) {
