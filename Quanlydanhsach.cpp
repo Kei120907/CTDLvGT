@@ -90,7 +90,6 @@ void swap(SinhVien& a, SinhVien& b) {
 }
 void Selectionsort(SinhVien lop[], int n) {
     int min;
-
     for (int i = 0; i < n - 1; i++) {
         min = i;
         for (int j = i + 1; j < n; j++)
@@ -98,6 +97,18 @@ void Selectionsort(SinhVien lop[], int n) {
         swap(lop[min], lop[i]);
     }
 }
+/*void Interchangesort(SinhVien lop[], int n, bool (*cmp)(SinhVien, SinhVien)) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (cmp(lop[j], lop[i])) {  dùng cmp để so sánh 
+                swap(lop[i], lop[j]); 
+            } 
+        }
+    }
+}
+bool cmpMasvAsc(SinhVien a, SinhVien b) {
+    return a.masv < b.masv; }
+*/
 void Interchangesort(SinhVien lop[], int n) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = i + 1; j < n; j++) {
@@ -105,6 +116,21 @@ void Interchangesort(SinhVien lop[], int n) {
                 swap(lop[i], lop[j]);
             }
         }
+    }
+}
+
+void Insertionsort(SinhVien lop[], int n) {
+    int j;
+    SinhVien t;
+    for (int i = 1; i < n; i++) {
+        j = i - 1;
+        t = lop[i];
+        while (j >= 0 && t.masv < lop[j].masv)
+        {
+            lop[j + 1] = lop[j];
+            j--;
+        }
+        lop[j + 1] = t;
     }
 }
 void Bubblesort(SinhVien lop[], int n) {
@@ -116,37 +142,21 @@ void Bubblesort(SinhVien lop[], int n) {
         }
     }
 }
-void Insertionsort(SinhVien lop[], int n)
-{
-
-    int pos; string x; SinhVien a;
-    for (int i = 1; i < n; i++)
-    {
-        a = lop[i]; x = lop[i].masv; pos = i - 1;
-        while ((pos >= 0) && lop[pos].masv > x)
-        {
-            lop[pos + 1] = lop[pos];
-            pos--;
-        }
-        lop[pos + 1].masv = x;
-        lop[pos + 1] = a;
-
-    }
-}
+//3 5 4
 void Shakersort(SinhVien lop[], int n) {
     int l = 0, r = n - 1, k = n - 1;
     while (l < r) {
-        for (int i = r; i > l; i--)
-            if (lop[i - 1].masv > lop[i].masv)
-            {
-                swap(lop[i - 1], lop[i]); k = i;
+        for (int i = r; i > l; i--) {
+            if (lop[i].masv < lop[i - 1].masv) { //4<5 -> swap
+                swap(lop[i], lop[i - 1]); k = i;
             }
+        }
         l = k;
-        for (int j = l; j<r;j++)
-            if (lop[j].masv > lop[j + 1].masv)
-            {
+        for (int j = l; j < r; j++) {
+            if (lop[j].masv > lop[j + 1].masv) { //5>4 -> swap
                 swap(lop[j], lop[j + 1]); k = j;
             }
+        }
         r = k;
     }
 }
@@ -155,26 +165,20 @@ void TKNP(SinhVien lop[], int n) {
     int m = (l + r) / 2;
     string x;
     do {
-        cout << "\n Nhap ma SV can tim (toi da 10 ky tu): ";
+        cout << "\n Nhap ma so SV (toi da 10 ky tu): ";
         getline(cin, x);
     } while (x.empty() || x.length() > 10);
-
     while (l <= r && lop[m].masv != x) {
-        if (lop[m].masv > x) {
-            r = m - 1;
-        }
-        else {
-            l = m + 1;
-        }
+        if (lop[m].masv > x) { r= m - 1; }
+        else l = m + 1;
         m = (l + r) / 2;
     }
-    if (l > r) cout << "Khong tim thay";
+    if (l > r) cout<< "\n Khong tim thay";
     else {
-        cout << "Tim thay ma so, thong tin: ";
+        cout << "\n Tim thay sinh vien, thong tin:";
         InSV(lop[m]);
     }
 }
-
 void DTBmax(SinhVien lop[], int n) {
     int vt = 0;
     for (int i = 1; i < n; i++) {
@@ -293,7 +297,7 @@ void LCSX(SinhVien lop[], int n, int& tt, int& sx) {
         cout << "\n Nhap '3': Bubblesort";
         cout << "\n Nhap '4': Insertionsort";
         cout << "\n Nhap '5': Shakersort";
-       
+
         cout << "\n Nhap '6': Ket thuc sap xep, quay lai Menu";
         cout << "\n Nhap lua chon cua ban: ";
         cin >> lc;
@@ -321,7 +325,7 @@ void DS(SinhVien lop[], int& n, int& tt, int& sx) {
         cout << "\n Nhap '5': Sap xep danh sach sinh vien";
         cout << "\n Nhap '6': Ket thuc buoc chinh sua danh sach";
         cout << "\n Nhap lua chon cua ban: ";
-        cin >> lc;
+        cin >> lc; system("cls");
         cin.ignore(); tt++;
         switch (lc) {
         case 1: Auto(lop, n); break;
@@ -329,7 +333,7 @@ void DS(SinhVien lop[], int& n, int& tt, int& sx) {
         case 3: LCBS(lop, n, tt, sx); break;
         case 4: LCX(lop, n, tt); break;
         case 5:LCSX(lop, n, tt, sx); break;
-        case 6: { system("cls"); cout << "Da hoan tat chinh sua danh sach!\n"; break; }
+        case 6: cout << "Da hoan tat chinh sua danh sach!\n"; break;
         default: cout << "Lua chon khong hop le!\n"; break;
         }
     } while (lc != 6);
